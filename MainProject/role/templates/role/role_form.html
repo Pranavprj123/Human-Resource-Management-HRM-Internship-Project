@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if role %}Edit Role{% else %}New Role{% endif %}</title>
+</head>
+<body>
+    <h2>{% if role %}Edit Role{% else %}New Role{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="name">Role Name:</label>
+        <input type="text" name="name" value="{{ role.name|default:'' }}" required>
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'role-list' %}">Cancel</a>
+</body>
+</html>

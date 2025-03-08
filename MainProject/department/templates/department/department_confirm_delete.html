@@ -252,18 +252,11 @@
             gap: 15px;
         }
     </style>
+   
 </head>
 <body>
-    {% block Sidebar %}
    
-    {% endblock %}
-    
-
-
-    {% block Navbar %}
-
-    {% endblock %}
-        
+        {% block Content %}
         <!-- Content Area -->
         <div class="content-area">
             <div class="header-with-actions">
@@ -288,5 +281,6 @@
             </div>
         </div>
     </div>
+    {% endblock %}
 </body>
 </html>

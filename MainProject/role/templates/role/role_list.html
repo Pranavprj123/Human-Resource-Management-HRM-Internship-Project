@@ -1,19 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Role List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Management</title>
+    <style>
+        :root {
+            --primary-blue: #2374e1;
+            --dark-blue: #0e2756;
+            --light-blue: #e8f0fe;
+            --white: #ffffff;
+            --light-gray: #f5f7fa;
+            --border-gray: #eaeaea;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+            padding: 30px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .header h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: #1a65c7;
+            box-shadow: 0 4px 8px rgba(26, 101, 199, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .btn-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .role-list {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .role-header {
+            background-color: var(--light-blue);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-gray);
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+        
+        .role-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-gray);
+            transition: background-color 0.2s ease;
+        }
+        
+        .role-item:last-child {
+            border-bottom: none;
+        }
+        
+        .role-item:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .role-name {
+            font-weight: 500;
+        }
+        
+        .role-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .edit-btn {
+            color: var(--primary-blue);
+            background-color: rgba(35, 116, 225, 0.1);
+        }
+        
+        .edit-btn:hover {
+            background-color: rgba(35, 116, 225, 0.2);
+        }
+        
+        .delete-btn {
+            color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+        
+        .delete-btn:hover {
+            background-color: rgba(220, 53, 69, 0.2);
+        }
+        
+        .empty-state {
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--text-light);
+        }
+    </style>
 </head>
 <body>
-    <h2>Roles</h2>
-    <a href="{% url 'role-create' %}">Add New Role</a>
-    <ul>
-        {% for role in roles %}
-            <li>
-                {{ role.name }}
-                <a href="{% url 'role-update' role.id %}">Edit</a>
-                <a href="{% url 'role-delete' role.id %}">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <div class="header">
+            <h2>Role Management</h2>
+            <a href="{% url 'role-create' %}" class="btn btn-primary btn-icon">
+                <span>+</span> Add New Role
+            </a>
+        </div>
+        
+        <div class="role-list">
+            <div class="role-header">
+                Role Name
+            </div>
+            
+            {% if roles %}
+                {% for role in roles %}
+                    <div class="role-item">
+                        <div class="role-name">{{ role.name }}</div>
+                        <div class="role-actions">
+                            <a href="{% url 'role-update' role.id %}" class="action-btn edit-btn">Edit</a>
+                            <a href="{% url 'role-delete' role.id %}" class="action-btn delete-btn">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    No roles found. Create a new role to get started.
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>

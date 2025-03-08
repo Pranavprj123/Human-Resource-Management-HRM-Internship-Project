@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+        rel="stylesheet">
     {% block Style %}
     <style>
         :root {
@@ -18,44 +20,45 @@
             --dark-color: #0d2b57;
             --accent-color: #e8f0fe;
         }
-        
+
         body {
             background-color: #f5f7fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         .sidebar {
             background-color: var(--primary-color);
             min-height: 100vh;
             color: white;
             transition: all 0.3s;
         }
-        
+
         .sidebar-header {
             padding: 20px;
             background-color: var(--dark-color);
         }
-        
+
         .sidebar .nav-link {
             color: rgba(255, 255, 255, 0.85);
             margin: 5px 10px;
             border-radius: 5px;
             transition: all 0.3s;
         }
-        
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
             background-color: rgba(255, 255, 255, 0.15);
             color: white;
         }
-        
+
         .sidebar .nav-link i {
             margin-right: 10px;
         }
-        
+
         .main-content {
             padding: 20px;
         }
-        
+
         .card {
             border: none;
             border-radius: 10px;
@@ -63,60 +66,60 @@
             margin-bottom: 20px;
             transition: transform 0.3s;
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
         }
-        
+
         .card-header {
             background-color: white;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             font-weight: 600;
         }
-        
+
         .stats-card {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
         }
-        
+
         .stats-card .card-body {
             padding: 20px;
         }
-        
+
         .navbar {
             background-color: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-        
+
         .navbar-brand {
             font-weight: bold;
             color: var(--primary-color);
         }
-        
+
         .user-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
         }
-        
+
         .table-container {
             background-color: white;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-        
+
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
-        
+
         .progress {
             height: 8px;
             border-radius: 4px;
         }
-        
+
         .avatar-group .avatar {
             width: 32px;
             height: 32px;
@@ -125,16 +128,16 @@
             border: 2px solid white;
             margin-left: -10px;
         }
-        
+
         .activity-item {
             padding: 10px 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
-        
+
         .activity-item:last-child {
             border-bottom: none;
         }
-        
+
         .activity-dot {
             width: 10px;
             height: 10px;
@@ -142,23 +145,23 @@
             display: inline-block;
             margin-right: 8px;
         }
-        
+
         .dot-primary {
             background-color: var(--primary-color);
         }
-        
+
         .dot-success {
             background-color: #34A853;
         }
-        
+
         .dot-warning {
             background-color: #FBBC05;
         }
-        
+
         .dot-danger {
             background-color: #EA4335;
         }
-        
+
         @media (max-width: 992px) {
             .sidebar {
                 min-height: auto;
@@ -167,6 +170,7 @@
     </style>
     {% endblock %}
 </head>
+
 <body>
     <div class="container-fluid">
         {% block Sidebar %}
@@ -234,29 +238,42 @@
 
             <div class="col-lg-10 col-md-9 ms-auto p-0">
                 <!-- Top Navbar -->
-                 {% block Navbar %}
+                {% block Navbar %}
                 <nav class="navbar navbar-expand-lg navbar-light px-3">
-                    <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
+                    <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#sidebar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="navbar-brand d-md-none" href="#">HRMsphere</a>
                     <div class="ms-auto d-flex align-items-center">
                         <div class="position-relative me-3">
                             <i class="bi bi-bell fs-5"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 3
                             </span>
                         </div>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div>{{ message }}</div>
+                        {% endfor %}
+                        {% endif %}
+                        <h2>Main Page</h2>
+                        <p>Welcome to the HRM System</p>
                         <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+                                id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="/api/placeholder/200/200" alt="User" class="user-avatar me-2">
                                 <span class="d-none d-sm-inline">John Doe</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>
+                                        Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -264,7 +281,7 @@
                 {% endblock %}
 
                 <!-- Main content area -->
-                 {% block Content %}
+                {% block Content %}
                 <div class="main-content">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="mb-0">Dashboard</h2>
@@ -272,7 +289,7 @@
                             <button class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Add Employee</button>
                         </div>
                     </div>
-                    
+
                     <!-- Stats Row -->
                     <div class="row mb-4">
                         <div class="col-xl-3 col-md-6">
@@ -282,7 +299,8 @@
                                     <div class="d-flex align-items-center">
                                         <div class="display-4 fw-bold me-3">186</div>
                                         <div>
-                                            <div class="text-white-50"><i class="bi bi-arrow-up-short"></i> 12% increase</div>
+                                            <div class="text-white-50"><i class="bi bi-arrow-up-short"></i> 12% increase
+                                            </div>
                                             <small class="text-white-50">from last month</small>
                                         </div>
                                     </div>
@@ -295,7 +313,8 @@
                                     <h5 class="card-title text-primary">Attendance</h5>
                                     <div class="display-4 fw-bold mb-3">94%</div>
                                     <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 94%"
+                                            aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <div class="mt-2 text-muted small">12 employees absent today</div>
                                 </div>
@@ -340,7 +359,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Second Row -->
                     <div class="row">
                         <div class="col-lg-8">
@@ -368,7 +387,9 @@
                                                 <tr>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            <img src="/api/placeholder/100/100" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                                            <img src="/api/placeholder/100/100"
+                                                                class="rounded-circle me-2" width="32" height="32"
+                                                                alt="User">
                                                             <div>
                                                                 <div class="fw-bold">Sarah Johnson</div>
                                                                 <div class="small text-muted">sarah.j@example.com</div>
@@ -380,13 +401,16 @@
                                                     <td><span class="badge bg-success">Active</span></td>
                                                     <td>
                                                         <div class="dropdown">
-                                                            <button class="btn btn-sm" type="button" id="dropdownAction1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <button class="btn btn-sm" type="button"
+                                                                id="dropdownAction1" data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
                                                                 <i class="bi bi-three-dots"></i>
                                                             </button>
                                                             <ul class="dropdown-menu" aria-labelledby="dropdownAction1">
                                                                 <li><a class="dropdown-item" href="#">View</a></li>
                                                                 <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                                <li><a class="dropdown-item text-danger" href="#">Disable</a></li>
+                                                                <li><a class="dropdown-item text-danger"
+                                                                        href="#">Disable</a></li>
                                                             </ul>
                                                         </div>
                                                     </td>
@@ -394,10 +418,13 @@
                                                 <tr>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            <img src="/api/placeholder/100/100" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                                            <img src="/api/placeholder/100/100"
+                                                                class="rounded-circle me-2" width="32" height="32"
+                                                                alt="User">
                                                             <div>
                                                                 <div class="fw-bold">Michael Chen</div>
-                                                                <div class="small text-muted">michael.c@example.com</div>
+                                                                <div class="small text-muted">michael.c@example.com
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -406,13 +433,16 @@
                                                     <td><span class="badge bg-success">Active</span></td>
                                                     <td>
                                                         <div class="dropdown">
-                                                            <button class="btn btn-sm" type="button" id="dropdownAction2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <button class="btn btn-sm" type="button"
+                                                                id="dropdownAction2" data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
                                                                 <i class="bi bi-three-dots"></i>
                                                             </button>
                                                             <ul class="dropdown-menu" aria-labelledby="dropdownAction2">
                                                                 <li><a class="dropdown-item" href="#">View</a></li>
                                                                 <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                                <li><a class="dropdown-item text-danger" href="#">Disable</a></li>
+                                                                <li><a class="dropdown-item text-danger"
+                                                                        href="#">Disable</a></li>
                                                             </ul>
                                                         </div>
                                                     </td>
@@ -420,7 +450,9 @@
                                                 <tr>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            <img src="/api/placeholder/100/100" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                                            <img src="/api/placeholder/100/100"
+                                                                class="rounded-circle me-2" width="32" height="32"
+                                                                alt="User">
                                                             <div>
                                                                 <div class="fw-bold">Emily Rodriguez</div>
                                                                 <div class="small text-muted">emily.r@example.com</div>
@@ -432,13 +464,16 @@
                                                     <td><span class="badge bg-warning text-dark">On Leave</span></td>
                                                     <td>
                                                         <div class="dropdown">
-                                                            <button class="btn btn-sm" type="button" id="dropdownAction3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <button class="btn btn-sm" type="button"
+                                                                id="dropdownAction3" data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
                                                                 <i class="bi bi-three-dots"></i>
                                                             </button>
                                                             <ul class="dropdown-menu" aria-labelledby="dropdownAction3">
                                                                 <li><a class="dropdown-item" href="#">View</a></li>
                                                                 <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                                <li><a class="dropdown-item text-danger" href="#">Disable</a></li>
+                                                                <li><a class="dropdown-item text-danger"
+                                                                        href="#">Disable</a></li>
                                                             </ul>
                                                         </div>
                                                     </td>
@@ -446,7 +481,9 @@
                                                 <tr>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            <img src="/api/placeholder/100/100" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                                            <img src="/api/placeholder/100/100"
+                                                                class="rounded-circle me-2" width="32" height="32"
+                                                                alt="User">
                                                             <div>
                                                                 <div class="fw-bold">David Wilson</div>
                                                                 <div class="small text-muted">david.w@example.com</div>
@@ -458,13 +495,16 @@
                                                     <td><span class="badge bg-success">Active</span></td>
                                                     <td>
                                                         <div class="dropdown">
-                                                            <button class="btn btn-sm" type="button" id="dropdownAction4" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <button class="btn btn-sm" type="button"
+                                                                id="dropdownAction4" data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
                                                                 <i class="bi bi-three-dots"></i>
                                                             </button>
                                                             <ul class="dropdown-menu" aria-labelledby="dropdownAction4">
                                                                 <li><a class="dropdown-item" href="#">View</a></li>
                                                                 <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                                <li><a class="dropdown-item text-danger" href="#">Disable</a></li>
+                                                                <li><a class="dropdown-item text-danger"
+                                                                        href="#">Disable</a></li>
                                                             </ul>
                                                         </div>
                                                     </td>
@@ -474,7 +514,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Projects Card -->
                             <div class="card mt-4">
                                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -493,7 +533,8 @@
                                             <span class="badge bg-primary">75%</span>
                                         </div>
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar" role="progressbar" style="width: 75%"
+                                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mt-2">
                                             <div class="avatar-group">
@@ -504,7 +545,7 @@
                                             <small class="text-muted">Due: Sep 30, 2023</small>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mb-4">
                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                             <div>
@@ -514,7 +555,8 @@
                                             <span class="badge bg-warning text-dark">45%</span>
                                         </div>
                                         <div class="progress">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 45%"
+                                                aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mt-2">
                                             <div class="avatar-group">
@@ -524,7 +566,7 @@
                                             <small class="text-muted">Due: Oct 15, 2023</small>
                                         </div>
                                     </div>
-                                    
+
                                     <div>
                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                             <div>
@@ -534,7 +576,8 @@
                                             <span class="badge bg-success">90%</span>
                                         </div>
                                         <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 90%"
+                                                aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mt-2">
                                             <div class="avatar-group">
@@ -549,7 +592,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-4">
                             <!-- Calendar Card -->
                             <div class="card">
@@ -560,7 +603,8 @@
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <button class="btn btn-sm btn-light"><i class="bi bi-chevron-left"></i></button>
                                         <h6 class="mb-0">April 2024</h6>
-                                        <button class="btn btn-sm btn-light"><i class="bi bi-chevron-right"></i></button>
+                                        <button class="btn btn-sm btn-light"><i
+                                                class="bi bi-chevron-right"></i></button>
                                     </div>
                                     <div class="row text-center mb-2">
                                         <div class="col">S</div>
@@ -596,13 +640,15 @@
                                         <div class="col">12</div>
                                         <div class="col position-relative">
                                             13
-                                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
                                             </span>
                                         </div>
                                         <div class="col">14</div>
                                         <div class="col position-relative">
                                             15
-                                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-primary rounded-circle">
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle p-1 bg-primary rounded-circle">
                                             </span>
                                         </div>
                                         <div class="col">16</div>
@@ -611,7 +657,8 @@
                                         <div class="col">17</div>
                                         <div class="col position-relative">
                                             18
-                                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-warning rounded-circle">
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle p-1 bg-warning rounded-circle">
                                             </span>
                                         </div>
                                         <div class="col">19</div>
@@ -621,11 +668,12 @@
                                         <div class="col">23</div>
                                     </div>
                                     <!-- More rows would continue here -->
-                                    
+
                                     <div class="mt-4">
                                         <h6>Upcoming Events</h6>
                                         <div class="d-flex align-items-center mb-2 p-2 bg-light rounded">
-                                            <div class="bg-primary text-white p-2 rounded me-3 text-center" style="width: 45px">
+                                            <div class="bg-primary text-white p-2 rounded me-3 text-center"
+                                                style="width: 45px">
                                                 <div class="small">APR</div>
                                                 <div class="fw-bold">13</div>
                                             </div>
@@ -635,7 +683,8 @@
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center mb-2 p-2 bg-light rounded">
-                                            <div class="bg-warning text-dark p-2 rounded me-3 text-center" style="width: 45px">
+                                            <div class="bg-warning text-dark p-2 rounded me-3 text-center"
+                                                style="width: 45px">
                                                 <div class="small">APR</div>
                                                 <div class="fw-bold">18</div>
                                             </div>
@@ -647,7 +696,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Recent Activity -->
                             <div class="card mt-4">
                                 <div class="card-header">
@@ -657,10 +706,11 @@
                                     <div class="activity-item">
                                         <div class="d-flex">
                                             <span class="activity-dot dot-primary"></span>
-                                            
+
 
                                             {% endblock %}
-                                           
-                                                
- </body>
+
+
+</body>
+
 </html>

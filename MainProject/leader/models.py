@@ -1,11 +1,8 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from department.models import Department
 from accounts.models import User
 from django.utils import timezone
-# Create your models here. 
+
 
 class Team(models.Model):
     Name=models.CharField(max_length=100,unique=True,null=False,blank=False)
@@ -57,4 +54,4 @@ class SubTaskSubmit(models.Model):
     status=models.CharField(max_length=20,choices=[("Approved","Approved"),("Rejected","Rejected"),("pending","pending")],default="pending")
     
     def _str_(self):
-        return f" Team Task Submited Team:-{self.subtask.Team.Name} submited by: {self.emp} "
+        return f" Team Task Submited Team:-{self.subtask.Team.Name} submited by: {self.emp} "

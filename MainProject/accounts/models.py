@@ -1,7 +1,4 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from department.models import Department
 
@@ -12,14 +9,11 @@ gender_choice = [
     ("N","Don't want to mention"),
 ]
 
-
 class Role(models.Model):
     RoleName=models.CharField(max_length=50,unique=True)
     description=models.CharField(max_length=200,null=False,default=" ")
     def _str_(self):
         return f"{self.RoleName}"
-
-
 
 class User(AbstractUser):
     role=models.ForeignKey(Role,on_delete=models.DO_NOTHING,null=True,blank=False)
@@ -32,6 +26,5 @@ class User(AbstractUser):
     active=models.BooleanField(default=True)  
     def Namee(self):
         return f"{self.first_name} {self.last_name} "
-
     def _str_(self):
         return f"{self.role} : {self.username}  - {self.department}"

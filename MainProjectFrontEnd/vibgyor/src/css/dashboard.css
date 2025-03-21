@@ -1,0 +1,22 @@
+.side-links>li{
+  background-color: rgb(244, 241, 241);
+  opacity: 0.3;
+  color: black;
+  margin:  0 0 2% 0;
+  border-radius: 10px;
+  padding: 3% 3%;
+}
+.side-links>li:hover{
+  opacity: 1;
+}
+.main-links>div>div>div{
+  background-color: rgb(236, 235, 238);
+  padding: 8%;
+}
+.main-links>div>div{
+  margin: 1%;
+
+}
+.main-links>div>div:hover{
+  opacity: 0.3;
+}

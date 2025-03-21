@@ -5,6 +5,7 @@ import Dashboard from './Dashboard';
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
+import ForgetPassword from './ForgetPassword';
 export default function Route() {
  return createBrowserRouter([
    {
@@ -33,7 +34,16 @@ export default function Route() {
         </>
       
       )
-    }
+    },
+    {
+      path: "/forgot-password",  
+      element: (
+        <>
+          
+          <ForgetPassword />
+        </>
+      )
+    },
      ]
    },
    {

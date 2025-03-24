@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
+// import {NavLink} from 'react-router-dom';
 
 export default function Login() {
   return (
@@ -83,6 +84,20 @@ export default function Login() {
             }}
           >
             Login
+          </button>
+          <button
+            type="submit"
+            className="btn w-100"
+            style={{
+              backgroundColor: "hsl(36, 88%, 50%)",
+              color: "white",
+              fontWeight: "bold",
+              margin: "2.5px",
+              textDecoration:'none',
+            }}
+          >
+            <NavLink style={{"textDecoration":"none",color:"white"}} to="/">Back</NavLink>
+           
           </button>
         </div>
       </form>

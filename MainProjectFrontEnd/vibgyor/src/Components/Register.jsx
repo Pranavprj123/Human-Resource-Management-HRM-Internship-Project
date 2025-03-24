@@ -1,6 +1,7 @@
 import React from 'react'
 import './../css/loginregister.css'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function Register() {
   return (
@@ -111,6 +112,20 @@ export default function Register() {
             }}
           >
             Register
+          </button>
+          <button
+            type="submit"
+            className="btn w-100"
+            style={{
+              backgroundColor: "hsl(36, 88%, 50%)",
+              color: "white",
+              fontWeight: "bold",
+              margin: "2.5px",
+              textDecoration: "none",
+            }}
+          >
+            <NavLink style={{"textDecoration":"none",color:"white"}} to="/">Back</NavLink>
+           
           </button>
         </div>
       </form>

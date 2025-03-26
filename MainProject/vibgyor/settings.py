@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'task.apps.TaskConfig',
     'leader.apps.LeaderConfig',
     'attendance.apps.AttendanceConfig',
+    'corsheaders',
 ]
-
+CORS_ALLOW_ALL_ORIGINS = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'vibgyor.urls'
@@ -83,10 +85,9 @@ from decouple import config
 import os
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "OPTIONS": {
-            "read_default_file": os.path.join(BASE_DIR,'my.cnf')
-        },
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+      
     }
 }
 

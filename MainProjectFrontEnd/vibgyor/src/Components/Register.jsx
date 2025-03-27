@@ -5,11 +5,11 @@ import "./../css/loginregister.css";
 import APIROOT from "..";
 export default function RegisterPage() {
   const [data, setData] = useState(null);
-  const [role, setRole] = useState(null);
-  const [department, setDepartment] = useState(null);
-  const [manager, setManager] = useState(null);
+  const [roles, setRole] = useState([]);
+  const [departments, setDepartment] = useState([]);
+  const [managers, setManager] = useState([]);
   useEffect(() => {
-    fetch(APIROOT + "/combined-data/")
+    fetch(APIROOT + "combined-data/")
       .then((response) => response.json())
       .then((data) => {
         // Assuming combined data includes role, department, manager
@@ -52,9 +52,63 @@ export default function RegisterPage() {
   };
 
   // Handle form submission
-  const onSubmit = (data) => {
-    console.log("Form submitted", data);
+  // Handle form submission
+  const onSubmit = async (formData) => {
+    console.log(departments,managers);
+      
+    // Find the selected department and manager objects to get their IDs
+    const selectedDepartment = departments.find(
+      (dept) => dept.dept_name.toString() === formData.department
+    );
+    const selectedManager = managers.find(
+      (manager) => manager.username.toString() === formData.manager
+    );
+    
+    // Prepare the data for API submission
+    const apiData = {
+      ...formData,
+      user_permissions:[],
+      groups:[],
+      department: selectedDepartment ? selectedDepartment.dept_id : null,
+      manager: selectedManager ? selectedManager.manager : null,
+      date_joined: new Date().toISOString(),
+      role : Number(formData.role), // Add current date
+      // Remove confirmPassword as it's not needed in the API
+      confirmPassword: undefined,
+    };
+    
+    // Remove undefined fields
+    Object.keys(apiData).forEach(
+      (key) => apiData[key] === undefined && delete apiData[key]
+    );
+    console.log("Form submitted", apiData);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/user/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(apiData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("API Error:", errorData);
+        throw new Error(errorData.message || "Failed to create account");
+      }
+
+      const data = await response.json();
+      console.log("User created successfully:", data);
+      // Optionally redirect or show success message
+    } catch (error) {
+      console.error("Error creating user:", error);
+      alert(
+        error.message || "Failed to create account. Please try again later."
+      );
+    }
   };
+
 
   return (
     <div className="overlay d-flex justify-content-center align-items-center vh-100">
@@ -90,7 +144,7 @@ export default function RegisterPage() {
                 },
               })}
             />
-            {errors.last_name && (
+            {errors.first_name && (
               <p style={{ color: "red" }}>{errors.first_name.message}</p>
             )}
           </div>
@@ -324,6 +378,73 @@ export default function RegisterPage() {
               <div className="invalid-feedback" style={{ display: "block" }}>
                 {errors.dob.message}
               </div>
+            )}
+          </div>
+          {/* Role Dropdown */}
+          <div className="mb-3">
+            <label htmlFor="role" className="form-label fw-bold">
+              Role
+            </label>
+            <select
+              id="role"
+              className="form-control"
+              {...register("role", { required: "Role is required" })}
+            >
+              <option value="">Select Role</option>
+              {roles.map((role) => (
+                <option key={role.id} value={role.id}>
+                  {role.RoleName}
+                </option>
+              ))}
+            </select>
+            {errors.role && (
+              <p style={{ color: "red" }}>{errors.role.message}</p>
+            )}
+          </div>
+
+          {/* Department Dropdown */}
+          <div className="mb-3">
+            <label htmlFor="department" className="form-label fw-bold">
+              Department
+            </label>
+            <select
+              id="department"
+              className="form-control"
+              {...register("department", {
+                required: "Department is required",
+              })}
+            >
+              <option value="">Select Department</option>
+              {departments.map((department) => (
+                <option key={department.id} value={department.id}>
+                  {department.dept_name}
+                </option>
+              ))}
+            </select>
+            {errors.department && (
+              <p style={{ color: "red" }}>{errors.department.message}</p>
+            )}
+          </div>
+
+          {/* Manager Dropdown */}
+          <div className="mb-3">
+            <label htmlFor="manager" className="form-label fw-bold">
+              Manager
+            </label>
+            <select
+              id="manager"
+              className="form-control"
+              {...register("manager", { required: "Manager is required" })}
+            >
+              <option value="">Select Manager</option>
+              {managers.map((manager) => (
+                <option key={manager.id} value={manager.id}>
+                  {manager.username} {manager.last_name}
+                </option>
+              ))}
+            </select>
+            {errors.manager && (
+              <p style={{ color: "red" }}>{errors.manager.message}</p>
             )}
           </div>
           {/* Terms & Conditions */}

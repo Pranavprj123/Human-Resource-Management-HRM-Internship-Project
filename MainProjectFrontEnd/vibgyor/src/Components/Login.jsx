@@ -1,8 +1,12 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
+import axios from 'axios';
+import APIROOT from "..";
 export default function Login() {
+  const [error,setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -10,9 +14,34 @@ export default function Login() {
   } = useForm();
 
   // Handling form submission
-  const onSubmit = (data) => {
-    console.log("Form submitted");
-    console.log(data);
+  const onSubmit = async (data) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await axios.post(
+        APIROOT+"api-token-auth/",
+        {
+          username: data.username,
+          password: data.password,
+        }
+      );
+      console.log(data);
+      console.log(response);
+      
+      // Store the token in localStorage or context
+      window.localStorage.setItem("authToken", response.data.token);
+      // Redirect to dashboard or home page
+      // navigate("/dashboard");
+    } catch (err) {
+      console.log(data);
+      setError(
+        err.response?.data?.non_field_errors?.[0] ||
+          "Invalid username or password"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -24,33 +53,34 @@ export default function Login() {
         <h2 className="text-center mb-4" style={{ color: "hsl(36, 88%, 50%)" }}>
           Log in
         </h2>
+        {error && <div className="alert alert-danger">{error}</div>}
 
         {/* Form with Labels on the Left and Above Inputs */}
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Email input field */}
+          {/* Username input field */}
           <div className="mb-3 d-flex flex-column">
             <label
-              htmlFor="email"
+              htmlFor="username"
               className="form-label fw-bold text-start"
               style={{ color: "#333" }}
             >
-              Your email
+              Your username
             </label>
             <input
-              type="email"
+              type="text"
               className="form-control"
-              id="email"
-              placeholder="Enter your email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: "Invalid email address",
+              id="username"
+              placeholder="Enter your username"
+              {...register("username", {
+                required: "Username is required",
+                minLength: {
+                  value: 3,
+                  message: "Username must be at least 3 characters long",
                 },
               })}
             />
-            {errors.email && (
-              <p style={{ color: "red" }}>{errors.email.message}</p>
+            {errors.username && (
+              <p style={{ color: "red" }}>{errors.username.message}</p>
             )}
           </div>
 
@@ -71,8 +101,8 @@ export default function Login() {
               {...register("password", {
                 required: "Password is required",
                 minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters long",
+                  value: 8,
+                  message: "Password must be at least 8 characters long",
                 },
               })}
             />
@@ -112,27 +142,25 @@ export default function Login() {
                 color: "white",
                 fontWeight: "bold",
               }}
+              disabled={loading}
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </button>
-            <button
-              type="button"
-              className="btn w-100"
-              style={{
-                backgroundColor: "hsl(36, 88%, 50%)",
-                color: "white",
-                fontWeight: "bold",
-                margin: "2.5px",
-                textDecoration: "none",
-              }}
-            >
-              <NavLink
-                style={{ textDecoration: "none", color: "white" }}
-                to="/"
+            <NavLink style={{ textDecoration: "none", color: "white" }} to="/">
+              <button
+                type="button"
+                className="btn w-100"
+                style={{
+                  backgroundColor: "hsl(36, 88%, 50%)",
+                  color: "white",
+                  fontWeight: "bold",
+                  margin: "2.5px",
+                  textDecoration: "none",
+                }}
               >
                 Back
-              </NavLink>
-            </button>
+              </button>
+            </NavLink>
           </div>
         </form>
 

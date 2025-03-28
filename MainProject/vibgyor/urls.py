@@ -19,6 +19,7 @@ from django.urls import path,include
 from django.urls import path,include
 from rest_framework.routers import DefaultRouter
 from accounts.views import UserView
+from rest_framework.authtoken.views import obtain_auth_token
 router = DefaultRouter()
 router.register(r'user',UserView)
 from accounts.views import CombinedListViewSet
@@ -33,4 +34,5 @@ urlpatterns = [
     path('api/department/',include('department.urls')),
     path('api/leader/',include('leader.urls')),
     path('api/task/',include('task.urls')),
+    path('api-token-auth/',obtain_auth_token,name='api_token_auth'),
 ]

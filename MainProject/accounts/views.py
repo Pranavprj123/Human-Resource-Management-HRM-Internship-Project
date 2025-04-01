@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.views import View
 # Create your views here.
-from rest_framework import permissions
 from rest_framework import viewsets
 from  .models import User
 from .serializers import UserSerializer
+from rest_framework import permissions
 from rest_framework.mixins import ListModelMixin
-class  UserView(viewsets.ModelViewSet):
+class  UserView(viewsets.ModelViewSet):  
     queryset = User.objects.all()
     serializer_class = UserSerializer
     def get_permissions(self):
@@ -15,7 +15,7 @@ class  UserView(viewsets.ModelViewSet):
         else:
             permission_classes = [permissions.IsAuthenticated]
         return [permission() for permission in permission_classes]
-    
+
 # class UserRegisterView(ListModelMixin):
 #     queryset = User.objects.all()
 #     serializer_class = UserRegisterSerializer
@@ -52,3 +52,12 @@ class Login(View):
 
 class Register(View):
     pass
+
+class RoleViewSet(viewsets.ModelViewSet):
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
+    permission_classes = permissions.IsAuthenticated
+# class UserPermissionsViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserPermissionSerializer
+#     permission_classes = permissions.IsAuthenticated
